@@ -49,6 +49,7 @@ namespace ProyectoP1.Controllers
             Usuario usuario_encontrado = await _usuarioServicio.GetUsuario(correo, Utilidades.EncriptrarClave(clave));
 
             if (usuario_encontrado == null) {
+                ViewData["Mensaje"] = "Usuario Invalido";
                 return View();
             }
 

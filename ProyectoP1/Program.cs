@@ -18,6 +18,14 @@ builder.Services.AddDbContext<HotelAbcContext>(options => {
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+
+        options.LoginPath = "/Inicio/Home";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +40,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

@@ -1,7 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using ProyectoP1.Models;
+
+using ProyectoP1.Servicios.Contrato;
+using ProyectoP1.Servicios.Implementacion;
+
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<HotelAbcContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL"));
+});
+
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 var app = builder.Build();
 
